@@ -1,18 +1,14 @@
 {
   "notes": [
     {
-      "title": "Test Title",
-      "text": "Test text",
-      "id": "test_id"
-    },
-    {
-      "title": "GOT ",
-      "text": "TEXXXT"
-    },
-    {
       "title": "New note",
       "text": "content",
       "id": "Fx2w2zQN9"
+    },
+    {
+      "title": "Issa New Title",
+      "text": "Just some random note text",
+      "id": "wiW9CJuIB"
     }
   ]
 }

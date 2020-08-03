@@ -23,6 +23,21 @@ function createNote(body, notesArray){
     return note;
 }
 
+function findById(id, notesArray){
+    const result = notesArray.filter(note => note.id === id)[0];
+    return result;
+}
+
+function removeNote(noteEl, notesArray){
+    notesArray = notesArray.splice(notesArray.indexOf(noteEl), 1);
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify({notes: notesArray}, null, 2)
+    );
+    return notesArray;
+}
+
+
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
@@ -32,9 +47,6 @@ app.get('/notes', (req, res) => {
   });
 
 app.get('/api/notes', (req, res) => {
-    //let results = req.getNotes();
-   // console.log('Our request field is: ', req);
-    //console.log('Our result field is: ', res);
     return res.json(notes);
 });
 
@@ -43,6 +55,16 @@ app.post('/api/notes', (req, res) => {
 
     const note = createNote(req.body, notes);
     res.json(note);
+});
+
+app.delete('/api/notes/:id', (req, res) =>{
+    const result = findById(req.params.id, notes);
+    if(result){
+        removeNote(result, notes);
+        res.json(notes);
+    }else{
+        res.send(404);
+    }
 });
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
