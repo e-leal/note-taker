@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { notes } = require('./db/db.json');
 const express = require('express');
+const shortid = require('shortid');
 const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(express.static(__dirname + '/public'));
@@ -38,7 +39,7 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
-    //req.body.id = notes.length.toString();
+    req.body.id = shortid.generate();
 
     const note = createNote(req.body, notes);
     res.json(note);
